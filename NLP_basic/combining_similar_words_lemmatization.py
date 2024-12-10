@@ -73,7 +73,7 @@ def lemmatize(words):
 
 def lemmatize_long_text(text):
     words = pos_tag_nltk(text)
-    words = [
+    words1 = [
         (
             word_tuple[0],
             pos_mapping[word_tuple[1]]
@@ -84,14 +84,14 @@ def lemmatize_long_text(text):
     ]
     words = [
         (
-            lemmatizer.lemmatize(word_tuple[0])
+            lemmatizer.lemmatize(word_tuple[0],word_tuple[1])
             if word_tuple[1] in accepted_pos
             else word_tuple[0],
             word_tuple[1],
         )
-        for word_tuple in words
+        for word_tuple in words1
     ]
-    return words
+    return words1,words
 
 
 def main():
@@ -101,5 +101,6 @@ def main():
     lem_words.append(lemmatizer.lemmatize("worse", "a"))
     print(lem_words)
     sherlock_holmes_text = read_text_file("/content/sherlock_holmes_1.txt")
-    lem_words = lemmatize_long_text(sherlock_holmes_text)
+    lem_words1,lem_words = lemmatize_long_text(sherlock_holmes_text)
     print(lem_words)
+    print(lem_words1)
